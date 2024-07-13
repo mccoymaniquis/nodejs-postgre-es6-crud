@@ -57,7 +57,7 @@ export const createUser = async (req, res) => {
         }
         res.status(200).json({
           statusCode: 200,
-          result: 'Success po',
+          result: 'Success',
           message: 'User created successfully!',
         })
       }
