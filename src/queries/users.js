@@ -1,7 +1,7 @@
 'use strict'
 
-export const postStudent = `
-        INSERT INTO "SampleSchema"."users"  
+export const postUser = `
+        INSERT INTO users
         (
             firstname,
             middlename, 
@@ -13,3 +13,5 @@ export const postStudent = `
         ) 
         VALUES 
         ($1,$2,$3,$4,$5,$6,$7)`
+
+export const getUser = `select firstname as "firstName", middlename as "middleName",lastname as "lastName", age,dateofbirth as "dateOfBirth", username , password from users where username=$1`
