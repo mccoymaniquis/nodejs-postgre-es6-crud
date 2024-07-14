@@ -5,8 +5,6 @@ import express from 'express'
 const app = express()
 dotenv.config()
 
-// app.use(express.json()) // for parsing application/json
-
 export const validateApp = (req, res, next) => {
   try {
     const clientID = req.headers['client-id']
@@ -38,6 +36,25 @@ export const validateApp = (req, res, next) => {
     res.status(500).json({
       error: error.message,
       stack: process.env.NODE_ENV === 'development' ? error.stack : null,
+    })
+  }
+}
+
+export const validateToken = (req, res, next) => {
+  try {
+    const authorization = req.headers['authorization']
+
+    if (!authorization)
+      return res.status(401).json({
+        result: 'Unathorized',
+        message: 'Invalid Token',
+      })
+    req.token = authorization
+    next()
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+      stack: config.app.environment === 'development' ? err.stack : null,
     })
   }
 }
