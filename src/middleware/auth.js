@@ -1,8 +1,9 @@
 'use strict'
-
+import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import express from 'express'
-const app = express()
+import { app as appConfig } from '../../config.js'
+import { successResponse, errorResponse } from '../_helper/statusResponse.js'
 dotenv.config()
 
 export const validateApp = (req, res, next) => {
@@ -14,9 +15,11 @@ export const validateApp = (req, res, next) => {
     const expectedClientSecret = process.env.APP_CLIENT_SECRET
 
     if (!clientID || !clientSecret) {
-      return res.status(401).json({
-        result: 'Unauthorized',
-        message: 'Client ID/Client Secret is missing.',
+      return errorResponse(res, 401, {
+        error: {
+          result: 'Unauthorized',
+          message: 'Client ID/Client Secret is missing.',
+        },
       })
     }
     if (clientID !== expectedClientID) {
@@ -52,9 +55,24 @@ export const validateToken = (req, res, next) => {
     req.token = authorization
     next()
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-      stack: config.app.environment === 'development' ? err.stack : null,
+    // errorResponse(res, error)
+  }
+}
+
+export const getAuthData = async (req, res, next) => {
+  try {
+    // const authorization = req.headers['Authorization']
+    jwt.verify(req.token, appConfig.clientSecret, async (err, authData) => {
+      if (err) {
+        return res.status(403).json({
+          result: 'forbidden',
+          message: err?.message,
+        })
+      }
+      req.authData = authData
+      next()
     })
+  } catch (error) {
+    // errorResponse(res, error)
   }
 }
