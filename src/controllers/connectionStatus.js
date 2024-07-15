@@ -2,6 +2,7 @@
 
 import pkg from 'pg'
 import { database } from '../../config.js'
+import { successResponse, errorResponse } from '../_helper/statusResponse.js'
 const { Pool } = pkg
 const pool = new Pool(database)
 
@@ -10,7 +11,7 @@ export const getStatus = async (req, res) => {
     const client = await pool.connect()
     client.release() // Release client immediately after connection test
 
-    res.status(200).json({
+    successResponse(res, 200, {
       result: {
         statusCode: 200,
         status: 'connected',
@@ -18,12 +19,11 @@ export const getStatus = async (req, res) => {
       },
     })
   } catch (error) {
-    res.status(500).json({
-      result: {
-        statusCode: 500,
-        status: 'failed',
-        message: 'Database connection error',
-        error: error.message,
+    errorResponse(res, 500, {
+      error: {
+        statusCode: 200,
+        status: 'connected',
+        message: 'Database is connected',
       },
     })
   }
