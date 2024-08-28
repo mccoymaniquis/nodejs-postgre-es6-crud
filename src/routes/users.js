@@ -6,6 +6,7 @@ import {
   checkAuthentication,
   GetAllUsersPagination,
   updateUser,
+  GetUserById,
 } from '../controllers/users.js'
 
 import { validateToken, getAuthData } from '../middleware/auth.js'
@@ -29,6 +30,7 @@ router.get(
   getAuthData,
   GetAllUsersPagination
 )
+router.get('/list/user', validateToken, getAuthData, GetUserById)
 router.put(
   '/update-user',
   validateUpdateUser,
