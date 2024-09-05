@@ -14,7 +14,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "http://localhost:3000", // Adjust this to allow requests from your frontend domain
+    origin: "https://master.d167bawz5akv41.amplifyapp.com/", // Adjust this to allow requests from your frontend domain
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: [
       "Content-Type",
