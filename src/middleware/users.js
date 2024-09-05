@@ -8,7 +8,7 @@ export const validateCreateUser = [
     .notEmpty()
     .withMessage('Date of birth is required')
     .isDate({ format: 'MM-DD-YYYY' })
-    .withMessage('Valid date is required'),
+    .withMessage('Valid date is required eg. MM-DD-YYYY'),
   body('age')
     .notEmpty()
     .withMessage('Age is required')

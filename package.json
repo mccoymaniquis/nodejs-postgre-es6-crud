@@ -2,11 +2,13 @@
   "name": "Postgres-API",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon --exec babel-node index.js"
+    "server": "nodemon --exec babel-node app.js",
+    "start": "node dist/app.js",
+    "build": "babel . --out-dir dist"
   },
   "keywords": [],
   "author": "",

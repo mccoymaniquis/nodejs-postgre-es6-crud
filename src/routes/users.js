@@ -20,7 +20,7 @@ import {
 const router = Router()
 
 //routers
-router.post('/register', validateCreateUser, createUser) //endpoint will be http://localhost:3000/api/v1/users/register
+router.post('/register', validateCreateUser, createUser) //endpoint will be http://localhost:8000/api/v1/users/register
 router.post('/login', validateLogin, loginUser)
 router.post('/check-authentication', validateToken, checkAuthentication)
 router.get(

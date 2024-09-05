@@ -42,11 +42,16 @@ export const createUser = async (req, res) => {
       ],
       (error, results) => {
         if (error) {
-          return errorResponse(400, res, error)
+          return res.status(400).json({
+            error
+          })
         }
-        successResponse(res, 200, {
-          result: { message: 'User Created Successfully' },
+        return res.status(200).json({
+          result: {
+            message: 'User Created Successfully'
+          }
         })
+        
       }
     )
   } catch (error) {
